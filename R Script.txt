@@ -1,0 +1,23 @@
+library(readr)
+all_data <- read_csv("C:/Users/PRADEESH S/Desktop/B00760279 - Assignment 5/Source Dataset/zoo.csv")
+
+install.packages("arules")
+install.packages('dplyr', dependencies = TRUE)
+install.packages("arulesViz")
+library(arules)
+library(arulesViz)
+par_data = all_data
+data_frame <- data.frame(sapply(par_data,as.factor))
+
+start.time <- Sys.time()
+rules<- apriori(data_frame, parameter = list(supp=0.7,conf=0.9,minlen=2))
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+rules=sort(rules, by="conf")
+inspect(rules) 
+plot(rules,method = "graph")
+
+
+
